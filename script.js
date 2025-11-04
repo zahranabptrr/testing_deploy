@@ -10,7 +10,6 @@ async function openChatbot() {
 
     // Cek jika pengguna membatalkan atau input kosong
     if (!userMessage) {
-        // Tampilkan pesan di alert jika dibatalkan
         alert('Obrolan dibatalkan.');
         return;
     }
@@ -23,14 +22,9 @@ async function openChatbot() {
     }
     // --- AKHIR LOGIKA SESSION ID ---
 
-    // ----------------------------------------------------
-    // PERUBAHAN UTAMA: Targetkan elemen HTML untuk output
-    // ----------------------------------------------------
+    // Targetkan elemen HTML untuk output dan berikan feedback loading
     const responseContainer = document.getElementById('ai-agent-text');
-    
-    // Berikan feedback loading di dalam container
     responseContainer.innerHTML = 'Mengirim pesan ke AI Agent, mohon tunggu...';
-    // ----------------------------------------------------
 
     try {
         // 2. Siapkan data yang akan dikirim ke n8n
@@ -56,19 +50,18 @@ async function openChatbot() {
         // Respons Diharapkan Berupa JSON dari n8n
         const data = await response.json();
         
-        // Ambil balasan dari kunci 'response' atau 'text'
-        const aiResponse = data.response || data.text || "Gagal mendapatkan balasan dari AI. Cek konfigurasi Response Body n8n.";
+        // ----------------------------------------------------
+        // PERUBAHAN KRITIS: Sekarang mencari kunci 'output' (Sesuai konfigurasi n8n terbaru)
+        // ----------------------------------------------------
+        const aiResponse = data.output || data.response || data.text || "Gagal mendapatkan balasan dari AI. Cek kunci 'output' di Respond to Webhook n8n.";
         
-        // Tampilkan jawaban di dalam elemen HTML (mengganti pesan loading)
+        // Tampilkan jawaban di dalam elemen HTML
         responseContainer.innerHTML = aiResponse;
 
     } catch (error) {
         console.error('Error saat menghubungi n8n Webhook:', error);
         
         // Tampilkan pesan error di dalam container
-        responseContainer.innerHTML = 'Terjadi kesalahan: Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow sudah aktif dan Node Respond to Webhook sudah disetel ke JSON.';
-        
-        // Opsional: Tampilkan alert() untuk error yang sangat kritis
-        alert('Gagal terhubung atau menerima balasan dari ChatBot. Silakan lihat pesan di bawah bagian Makalah Project.');
+        responseContainer.innerHTML = 'Terjadi kesalahan: Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow sudah aktif.';
     }
 }
