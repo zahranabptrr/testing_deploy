@@ -1,5 +1,5 @@
 // URL Webhook n8n Anda untuk ChatBot
-const WEBHOOK_URL = 'https://wendyproducts.app.n8n.cloud/webhook-test/fb4c92a4-aa9f-43f9-9358-ae9a741b6f4d';
+const WEBHOOK_URL = 'https://wendyproducts.app.n8n.cloud/webhook/fb4c92a4-aa9f-43f9-9358-ae9a741b6f4d';
 
 // CATATAN: Fungsi addRow() telah dihapus karena elemen tabel transaksi sudah tidak ada di index.html
 
@@ -65,3 +65,4 @@ async function openChatbot() {
         responseContainer.innerHTML = 'Terjadi kesalahan: Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow sudah aktif.';
     }
 }
+
