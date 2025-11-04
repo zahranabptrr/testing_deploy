@@ -10,28 +10,33 @@ async function openChatbot() {
 
     // Cek jika pengguna membatalkan atau input kosong
     if (!userMessage) {
+        // Tampilkan pesan di alert jika dibatalkan
         alert('Obrolan dibatalkan.');
         return;
     }
 
-    // --- LOGIKA SESSION ID BARU DIMULAI DI SINI ---
-    // Dapatkan/buat Session ID (menggunakan Session Storage)
+    // --- LOGIKA SESSION ID TETAP SAMA ---
     let sessionId = sessionStorage.getItem('ai_session_id');
     if (!sessionId) {
-        // Buat ID sesi baru yang sederhana jika belum ada
         sessionId = 'sesi_' + Date.now(); 
         sessionStorage.setItem('ai_session_id', sessionId);
     }
-    // --- LOGIKA SESSION ID BARU BERAKHIR DI SINI ---
+    // --- AKHIR LOGIKA SESSION ID ---
 
-    alert('Mengirim pesan ke AI Agent. Mohon tunggu...');
+    // ----------------------------------------------------
+    // PERUBAHAN UTAMA: Targetkan elemen HTML untuk output
+    // ----------------------------------------------------
+    const responseContainer = document.getElementById('ai-agent-text');
+    
+    // Berikan feedback loading di dalam container
+    responseContainer.innerHTML = 'Mengirim pesan ke AI Agent, mohon tunggu...';
+    // ----------------------------------------------------
 
     try {
         // 2. Siapkan data yang akan dikirim ke n8n
-        // Sekarang payload menyertakan sessionId
         const payload = {
             message: userMessage,
-            sessionId: sessionId, // <-- Kunci ini akan digunakan oleh node Simple Memory di n8n
+            sessionId: sessionId, 
         };
 
         // 3. Kirim permintaan POST menggunakan Fetch API
@@ -48,15 +53,22 @@ async function openChatbot() {
             throw new Error(`Gagal mengirim pesan. Status HTTP: ${response.status}`);
         }
         
+        // Respons Diharapkan Berupa JSON dari n8n
         const data = await response.json();
         
-        // Tampilkan balasan dari AI Agent. Sesuaikan 'data.response' 
-        const aiResponse = data.response || data.text || "Pesan Anda berhasil diproses oleh n8n. (Cek log Webhook Anda)";
+        // Ambil balasan dari kunci 'response' atau 'text'
+        const aiResponse = data.response || data.text || "Gagal mendapatkan balasan dari AI. Cek konfigurasi Response Body n8n.";
         
-        alert(`AI Agent: ${aiResponse}`);
+        // Tampilkan jawaban di dalam elemen HTML (mengganti pesan loading)
+        responseContainer.innerHTML = aiResponse;
 
     } catch (error) {
         console.error('Error saat menghubungi n8n Webhook:', error);
-        alert('Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow aktif.');
+        
+        // Tampilkan pesan error di dalam container
+        responseContainer.innerHTML = 'Terjadi kesalahan: Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow sudah aktif dan Node Respond to Webhook sudah disetel ke JSON.';
+        
+        // Opsional: Tampilkan alert() untuk error yang sangat kritis
+        alert('Gagal terhubung atau menerima balasan dari ChatBot. Silakan lihat pesan di bawah bagian Makalah Project.');
     }
 }
