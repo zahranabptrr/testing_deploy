@@ -17,11 +17,16 @@ userInput.addEventListener('keypress', function (e) {
 /**
  * Menambahkan pesan ke kolom chat (baik dari user maupun AI).
  * @param {string} message - Isi pesan.
- * @param {string} sender - 'user' atau 'ai'.
+ * @param {string} sender - 'user' atau 'ai' atau 'ai-error'.
  */
 function appendMessage(message, sender) {
     const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', `message-${sender}`);
+    // Jika sender adalah 'ai-error', tambahkan kedua kelas
+    if (sender === 'ai-error') {
+        messageDiv.classList.add('message', 'message-ai', sender);
+    } else {
+        messageDiv.classList.add('message', `message-${sender}`);
+    }
     
     // Gunakan pre-wrap agar baris baru (`\n`) dari AI bisa ditampilkan
     messageDiv.innerHTML = `<p style="white-space: pre-wrap;">${message}</p>`; 
@@ -33,6 +38,7 @@ function appendMessage(message, sender) {
 
 // Fungsi utama untuk mengirim pesan
 async function sendMessage() {
+    
     const userMessage = userInput.value.trim();
 
     // Cek jika input kosong
@@ -48,9 +54,21 @@ async function sendMessage() {
     userInput.disabled = true;
     sendButton.disabled = true;
 
-    // Tambahkan feedback loading dari AI
-    appendMessage('...', 'ai-loading');
-    const loadingMessage = chatMessages.lastElementChild;
+    // ===============================================
+    // KODE BARU: Menambahkan Indikator Mengetik (Loading Dots)
+    // ===============================================
+    const loadingMessage = document.createElement('div');
+    // Gunakan kelas 'loading-indicator' (yang akan di-style di CSS)
+    loadingMessage.classList.add('message', 'message-ai', 'loading-indicator'); 
+    loadingMessage.innerHTML = 
+        `<div class="dot-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>`;
+    chatMessages.appendChild(loadingMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll ke bawah
+    // ===============================================
 
     // --- LOGIKA SESSION ID TETAP SAMA ---
     let sessionId = sessionStorage.getItem('ai_session_id');
@@ -101,6 +119,3 @@ async function sendMessage() {
         userInput.focus(); // Fokuskan kembali ke input
     }
 }
-
-// Catatan: openChatbot() yang lama sudah dihapus.
-
