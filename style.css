@@ -58,8 +58,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* CATATAN: .chatbot-btn telah dihapus karena diganti kolom chatbot */
-
 /* Anggota Section */
 .anggota-section {
     padding: 50px 20px;
@@ -123,8 +121,6 @@ body {
     text-align: center;
     padding: 25px 0; /* Padding sedikit lebih besar */
 }
-
-/* CATATAN: .chatbot-icon telah dihapus/dilewatkan karena diganti kolom chatbot */
 
 
 /* ==================================================== */
@@ -224,7 +220,7 @@ body {
     background-color: #e0e0e0; 
     color: #333;
     border-bottom-left-radius: 5px; 
-    text-align: left;
+    text-align: left; /* Teks rata kiri */
 }
 
 /* Membuat 'Ekor' untuk Gelembung AI */
@@ -242,14 +238,15 @@ body {
     border-bottom-right-radius: 5px; 
 }
 
-/* 3. Styling Tambahan untuk Pesan Status */
-.message-ai-loading, .message-ai-error {
+/* 3. Styling Tambahan untuk Pesan Error */
+.message-ai-error {
     float: left;
     background-color: #ffc107; 
     color: #333;
     font-style: italic;
     font-size: 0.85em;
-    opacity: 0.8;
+    opacity: 0.9; /* Sedikit lebih jelas dari loading */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Membersihkan float di antara elemen-elemen pesan */
@@ -262,6 +259,64 @@ body {
 /* Mengatasi masalah margin pada tag p di dalam div pesan */
 .message p {
     margin: 0;
+}
+
+
+/* ==================================================== */
+/* ====== GAYA TYPING INDICATOR (TITIK BERGERAK) ====== */
+/* ==================================================== */
+
+.loading-indicator {
+    /* Hapus bayangan default bubble untuk loading agar terlihat lebih halus */
+    box-shadow: none; 
+    
+    /* Atur lebar dan tinggi agar hanya cukup untuk titik-titik */
+    max-width: fit-content; 
+    padding: 8px 15px 8px 15px; /* Padding disesuaikan */
+    background-color: #e0e0e0; /* Warna bubble AI */
+    
+    /* Pastikan ekor gelembung AI tetap muncul */
+    border-bottom-left-radius: 5px; 
+}
+
+/* Container untuk menempatkan titik-titik */
+.dot-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 40px; /* Lebar container titik */
+}
+
+/* Gaya setiap titik */
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #555;
+    border-radius: 50%;
+    margin: 0 2px;
+    opacity: 0.5; /* Mulai dengan redup */
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+/* Delay animasi untuk menciptakan efek bergelombang */
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Definisi Animasi */
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1.0);
+        opacity: 1;
+    }
 }
 
 
@@ -280,7 +335,7 @@ body {
 /* ... (properti form lainnya dipertahankan) ... */
 
 .upload-area { 
-    border: 2px dashed #140049; /* Border dashed menggunakan warna aksen baru */
+    border: 2px dashed #140049; 
     padding: 30px; 
     text-align: center; 
     border-radius: 8px; 
@@ -302,8 +357,8 @@ table {
 }
 
 th, td { 
-    border: 1px solid #eee; /* Border tabel lebih terang */
-    padding: 12px; /* Padding lebih besar */
+    border: 1px solid #eee; 
+    padding: 12px; 
     text-align: left; 
     font-size: 0.9em; 
 }
@@ -322,7 +377,7 @@ th {
 }
 
 .btn-save { 
-    background-color: #5A64A3; /* Menggunakan warna primer */
+    background-color: #5A64A3; 
     color: white; 
     margin-top: 30px; 
     width: 100%; 
@@ -337,7 +392,7 @@ th {
 }
 
 .btn-add-row { 
-    background-color: #00CCB3; /* Menggunakan warna aksen baru (jika ada di desain Anda) */
+    background-color: #00CCB3; 
     color: white; 
     margin-right: 10px; 
     box-shadow: 0 4px 8px rgba(0, 204, 179, 0.3);
@@ -371,4 +426,3 @@ th {
     background-color: #434c8a; 
     transform: translateY(-3px);
 }
-
