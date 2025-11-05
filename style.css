@@ -7,6 +7,7 @@ body {
     padding: 0; 
     background-color: #f4f7f9; /* Latar belakang halaman */
     color: #333;
+    font-family: Arial, sans-serif; /* Font default yang umum */
 }
 
 .navbar {
@@ -16,7 +17,7 @@ body {
     background-color: #0e1229; /* Warna primer (DIPERTAHANKAN) */
     color: white;
     padding: 15px 50px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* <<< PERUBAHAN: Shadow lebih kuat >>> */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Shadow lebih kuat */
 }
 
 .logo {
@@ -39,13 +40,13 @@ body {
 }
 
 .navbar nav ul li a:hover {
-    background-color: #434C8A; /* <<< PERUBAHAN: Sedikit lebih gelap dari #5a64a3 >>> */
-    border-radius: 6px; /* <<< PERUBAHAN: Lebih bulat >>> */
+    background-color: #434C8A; /* Sedikit lebih gelap */
+    border-radius: 6px; /* Lebih bulat */
 }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg') no-repeat center center/cover; /* <<< PERUBAHAN: Overlay lebih gelap untuk keterbacaan >>> */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg') no-repeat center center/cover; /* Overlay lebih gelap untuk keterbacaan */
     color: white;
     text-align: center;
     padding: 100px 20px;
@@ -57,25 +58,7 @@ body {
     margin-bottom: 20px;
 }
 
-.chatbot-btn {
-    background-color: #001438; /* <<< PERUBAHAN: Warna aksen hijau/tosca cerah >>> */
-    color: white;
-    padding: 12px 30px; /* <<< PERUBAHAN: Padding lebih besar >>> */
-    border: none;
-    border-radius: 25px; /* <<< PERUBAHAN: Lebih bulat (Pill Shape) >>> */
-    cursor: pointer;
-    font-size: 1.1em; /* <<< PERUBAHAN: Font lebih besar >>> */
-    font-weight: bold; /* <<< PERUBAHAN: Ditebalkan >>> */
-    box-shadow: 0 6px 15px rgba(0, 204, 179, 0.5); /* <<< PERUBAHAN: Tambahkan shadow cerah >>> */
-    transition: all 0.3s;
-}
-
-.chatbot-btn:hover {
-    background-color: #92abff; /* <<< PERUBAHAN: Warna hover yang lebih gelap >>> */
-    transform: translateY(-3px); /* <<< PERUBAHAN: Efek angkat (lift effect) >>> */
-    box-shadow: 0 8px 20px rgba(109, 123, 184, 0.7); /* <<< PERUBAHAN: Shadow lebih kuat saat hover >>> */
-}s
-
+/* CATATAN: .chatbot-btn telah dihapus karena diganti kolom chatbot */
 
 /* Anggota Section */
 .anggota-section {
@@ -88,9 +71,8 @@ body {
     color: #5a64a3;
     margin-bottom: 50px;
     font-weight: bold;
-    /* Tambahkan batas lebar dan tengah agar judul tidak melebihi area tengah */
-    max-width: 1200px; /* Cocokkan dengan max-width anggota-container */
-    margin: 20px auto 40px auto; /* Tengah: top 0, sides auto, bottom 40px */
+    max-width: 1200px; 
+    margin: 20px auto 40px auto; 
 }
 
 .anggota-container {
@@ -103,14 +85,14 @@ body {
 .anggota-card {
     background-color: #fff;
     padding: 20px;
-    border-radius: 12px; /* <<< PERUBAHAN: Sudut lebih bulat >>> */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* <<< PERUBAHAN: Shadow lebih halus >>> */
+    border-radius: 12px; /* Sudut lebih bulat */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Shadow lebih halus */
     width: 200px;
-    transition: transform 0.3s; /* <<< PERUBAHAN: Tambahkan transisi hover >>> */
+    transition: transform 0.3s; 
 }
 
 .anggota-card:hover {
-    transform: translateY(-5px); /* <<< PERUBAHAN: Efek angkat >>> */
+    transform: translateY(-5px); /* Efek angkat */
 }
 
 .profile-circle {
@@ -121,7 +103,7 @@ body {
     background-color: #ddd;
     background-size: cover;
     background-position: center;
-    border: 4px solid #5a64a3; /* <<< PERUBAHAN: Border sedikit lebih tebal >>> */
+    border: 4px solid #5a64a3; /* Border sedikit lebih tebal */
 }
 
 .anggota-name {
@@ -136,32 +118,154 @@ body {
 
 /* Footer */
 .main-footer {
-    background-color: #343A40; /* <<< PERUBAHAN: Warna gelap yang lebih standar >>> */
+    background-color: #343A40; /* Warna gelap yang lebih standar */
     color: white;
     text-align: center;
-    padding: 25px 0; /* <<< PERUBAHAN: Padding sedikit lebih besar >>> */
+    padding: 25px 0; /* Padding sedikit lebih besar */
 }
 
-/* Chatbot Icon */
-.chatbot-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 55px; /* <<< PERUBAHAN: Sedikit lebih besar >>> */
-    height: 55px;
-    background-color: #FF6B6B; /* <<< PERUBAHAN: Warna aksen yang hidup (merah muda/coral) >>> */
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.7); /* <<< PERUBAHAN: Tambahkan shadow >>> */
-    z-index: 1000;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* ... tambahkan hover state untuk chatbot icon ... */
+/* CATATAN: .chatbot-icon telah dihapus/dilewatkan karena diganti kolom chatbot */
 
 
 /* ==================================================== */
-/* ====== Gaya Input Data Historis (Baru Ditambahkan) ====*/
+/* ====== Gaya Kolom Chatbot (Speech Bubbles) ========= */
+/* ==================================================== */
+
+.chatbot-column-container {
+    max-width: 400px; /* Lebar kolom chat */
+    height: 450px; /* Tinggi kolom chat */
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f7f7f7; 
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto; 
+    background-color: #fff;
+}
+
+.chat-input-area {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+#send-btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #5a64a3; /* Warna primer proyek sebagai tombol Kirim */
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-btn:hover {
+    background-color: #434C8A;
+}
+
+/* --- Styling Pesan (Speech Bubbles) --- */
+
+.message {
+    margin-bottom: 15px; /* Margin bawah sedikit lebih besar */
+    max-width: 80%;
+    padding: 10px 15px; 
+    border-radius: 20px; 
+    font-size: 0.95em;
+    line-height: 1.4;
+    position: relative; 
+    clear: both; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Tambahkan shadow ringan */
+}
+
+/* 1. Gelembung Pesan Pengguna (User) */
+.message-user {
+    float: right; 
+    background-color: #007bff; /* Warna biru standar untuk User */
+    color: white;
+    border-bottom-right-radius: 5px; 
+}
+
+/* Membuat 'Ekor' untuk Gelembung User */
+.message-user::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #007bff; 
+    border-right: 0;
+    border-top: 0;
+    border-bottom-left-radius: 5px; 
+}
+
+
+/* 2. Gelembung Pesan AI (Assistant) */
+.message-ai {
+    float: left; 
+    background-color: #e0e0e0; 
+    color: #333;
+    border-bottom-left-radius: 5px; 
+}
+
+/* Membuat 'Ekor' untuk Gelembung AI */
+.message-ai::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #e0e0e0; 
+    border-left: 0;
+    border-top: 0;
+    border-bottom-right-radius: 5px; 
+}
+
+/* 3. Styling Tambahan untuk Pesan Status */
+.message-ai-loading, .message-ai-error {
+    float: left;
+    background-color: #ffc107; 
+    color: #333;
+    font-style: italic;
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+/* Membersihkan float di antara elemen-elemen pesan */
+.chat-messages::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Mengatasi masalah margin pada tag p di dalam div pesan */
+.message p {
+    margin: 0;
+}
+
+
+/* ==================================================== */
+/* ====== Gaya Input Data Historis (Lainnya) ========== */
 /* ==================================================== */
 
 .project-container { 
@@ -169,13 +273,13 @@ body {
     margin: 40px auto; 
     padding: 20px; 
     background-color: #ffffff; 
-    border-radius: 10px; /* <<< PERUBAHAN: Sudut lebih bulat >>> */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* <<< PERUBAHAN: Shadow lebih menonjol >>> */
+    border-radius: 10px; /* Sudut lebih bulat */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow lebih menonjol */
 }
 /* ... (properti form lainnya dipertahankan) ... */
 
 .upload-area { 
-    border: 2px dashed #140049; /* <<< PERUBAHAN: Border dashed menggunakan warna aksen baru >>> */
+    border: 2px dashed #140049; /* Border dashed menggunakan warna aksen baru */
     padding: 30px; 
     text-align: center; 
     border-radius: 8px; 
@@ -197,8 +301,8 @@ table {
 }
 
 th, td { 
-    border: 1px solid #eee; /* <<< PERUBAHAN: Border tabel lebih terang >>> */
-    padding: 12px; /* <<< PERUBAHAN: Padding lebih besar >>> */
+    border: 1px solid #eee; /* Border tabel lebih terang */
+    padding: 12px; /* Padding lebih besar */
     text-align: left; 
     font-size: 0.9em; 
 }
@@ -211,13 +315,13 @@ th {
 .btn-action { 
     padding: 10px 20px; 
     border: none; 
-    border-radius: 6px; /* <<< PERUBAHAN: Lebih bulat >>> */
+    border-radius: 6px; 
     cursor: pointer; 
     font-weight: bold; 
 }
 
 .btn-save { 
-    background-color: #5A64A3; /* <<< PERUBAHAN: Menggunakan warna primer >>> */
+    background-color: #5A64A3; /* Menggunakan warna primer */
     color: white; 
     margin-top: 30px; 
     width: 100%; 
@@ -232,7 +336,7 @@ th {
 }
 
 .btn-add-row { 
-    background-color: #00CCB3; /* <<< PERUBAHAN: Menggunakan warna aksen baru >>> */
+    background-color: #00CCB3; /* Menggunakan warna aksen baru (jika ada di desain Anda) */
     color: white; 
     margin-right: 10px; 
     box-shadow: 0 4px 8px rgba(0, 204, 179, 0.3);
@@ -249,15 +353,15 @@ th {
 /* Styling untuk Button Makalah */
 .makalah-btn {
     display: inline-block;
-    padding: 12px 30px; /* <<< PERUBAHAN: Padding lebih besar >>> */
-    margin-top: 30px; /* <<< PERUBAHAN: Jarak lebih besar dari teks di atas >>> */
+    padding: 12px 30px; 
+    margin-top: 30px; 
     font-size: 1.1em;
     font-weight: bold;
     text-decoration: none; 
     color: white; 
     background-color: #5a64a3; 
-    border: 3px solid #cfd2ff; /* <<< PERUBAHAN: Border menggunakan aksen hijau cerah >>> */
-    border-radius: 30px; /* <<< PERUBAHAN: Lebih bulat (Pill Shape) >>> */
+    border: 3px solid #cfd2ff; 
+    border-radius: 30px; 
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.2s;
 }
