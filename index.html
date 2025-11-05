@@ -27,23 +27,20 @@
     <main>
         <section class="hero-section" id="home"> 
             <h1 class="main-title">Project Artificial Intelligence</h1>
-            <button class="chatbot-btn" onclick="openChatbot()">Coba ChatBot</button>
 
-            <div id="chatbot-response-container" style="
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                text-align: left;
-                background-color: rgba(0, 0, 0, 0.5); /* Hitam 50% transparan */
-                border: 1px solid white; /* Border putih */
-                border-radius: 8px;
-                color: white; /* Teks putih */
-            ">
-                <p><strong>Jawaban AI Agent:</strong></p>
-                <p id="ai-agent-text" style="white-space: pre-wrap;">Tekan tombol Chatbot untuk memulai percakapan.</p>
-            </div>   
-
-        </section>
+            <div class="chatbot-column-container">
+                <div id="chat-messages" class="chat-messages">
+                    <div class="message-ai">
+                        <p>Hai! Saya AI Agent. Ketik pesan Anda di bawah untuk memulai percakapan.</p>
+                    </div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <input type="text" id="user-input" placeholder="Ketik pesan Anda...">
+                    <button id="send-btn" onclick="sendMessage()">Kirim</button>
+                </div>
+            </div>
+            </section>
 
         <section class="anggota-section" id="anggota">
             <h2 class="section-title"> Anggota Kelompok 6</h2>
@@ -87,15 +84,9 @@
         </main>
 
     <footer class="main-footer">
-        Created By Kelompok 6
+        Created with <i class="fas fa-heart"></i> By Kelompok 6
     </footer>
-
-    <div class="chatbot-icon" onclick="openChatbot()">
-        <div class="bubble-2"></div>
-        <div class="bubble-1"></div>
-    </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
