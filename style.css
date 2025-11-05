@@ -224,6 +224,7 @@ body {
     background-color: #e0e0e0; 
     color: #333;
     border-bottom-left-radius: 5px; 
+    text-align: left;
 }
 
 /* Membuat 'Ekor' untuk Gelembung AI */
@@ -370,3 +371,4 @@ th {
     background-color: #434c8a; 
     transform: translateY(-3px);
 }
+
