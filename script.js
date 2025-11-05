@@ -1,18 +1,56 @@
 // URL Webhook n8n Anda untuk ChatBot
-const WEBHOOK_URL = 'https://wendyproducts.app.n8n.cloud/webhook/fb4c92a4-aa9f-43f9-9358-ae9a741b6f4d';
+const WEBHOOK_URL = 'https://wendyproducts.app.n8n.cloud/webhook-test/fb4c92a4-aa9f-43f9-9358-ae9a741b6f4d';
 
-// CATATAN: Fungsi addRow() telah dihapus karena elemen tabel transaksi sudah tidak ada di index.html
+// Dapatkan elemen-elemen DOM
+const chatMessages = document.getElementById('chat-messages');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-btn');
 
-// Fungsi untuk membuka ChatBot dan mengirim pesan ke n8n via Webhook
-async function openChatbot() {
-    // 1. Minta input dari pengguna
-    const userMessage = prompt('Hai! Saya AI Agent. Masukkan pesan Anda untuk memulai percakapan:');
+// Tambahkan event listener untuk tombol Kirim dan tombol Enter
+sendButton.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
 
-    // Cek jika pengguna membatalkan atau input kosong
+/**
+ * Menambahkan pesan ke kolom chat (baik dari user maupun AI).
+ * @param {string} message - Isi pesan.
+ * @param {string} sender - 'user' atau 'ai'.
+ */
+function appendMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', `message-${sender}`);
+    
+    // Gunakan pre-wrap agar baris baru (`\n`) dari AI bisa ditampilkan
+    messageDiv.innerHTML = `<p style="white-space: pre-wrap;">${message}</p>`; 
+    chatMessages.appendChild(messageDiv);
+    
+    // Scroll ke pesan terbaru
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Fungsi utama untuk mengirim pesan
+async function sendMessage() {
+    const userMessage = userInput.value.trim();
+
+    // Cek jika input kosong
     if (!userMessage) {
-        alert('Obrolan dibatalkan.');
         return;
     }
+
+    // Tampilkan pesan user di chat
+    appendMessage(userMessage, 'user');
+
+    // Kosongkan input dan nonaktifkan tombol
+    userInput.value = '';
+    userInput.disabled = true;
+    sendButton.disabled = true;
+
+    // Tambahkan feedback loading dari AI
+    appendMessage('...', 'ai-loading');
+    const loadingMessage = chatMessages.lastElementChild;
 
     // --- LOGIKA SESSION ID TETAP SAMA ---
     let sessionId = sessionStorage.getItem('ai_session_id');
@@ -22,18 +60,12 @@ async function openChatbot() {
     }
     // --- AKHIR LOGIKA SESSION ID ---
 
-    // Targetkan elemen HTML untuk output dan berikan feedback loading
-    const responseContainer = document.getElementById('ai-agent-text');
-    responseContainer.innerHTML = 'Mengirim pesan ke AI Agent, mohon tunggu...';
-
     try {
-        // 2. Siapkan data yang akan dikirim ke n8n
         const payload = {
             message: userMessage,
             sessionId: sessionId, 
         };
 
-        // 3. Kirim permintaan POST menggunakan Fetch API
         const response = await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: {
@@ -42,27 +74,32 @@ async function openChatbot() {
             body: JSON.stringify(payload),
         });
 
-        // 4. Proses respons
+        // Hapus pesan loading
+        loadingMessage.remove();
+
         if (!response.ok) {
             throw new Error(`Gagal mengirim pesan. Status HTTP: ${response.status}`);
         }
         
-        // Respons Diharapkan Berupa JSON dari n8n
         const data = await response.json();
         
-        // ----------------------------------------------------
-        // PERUBAHAN KRITIS: Sekarang mencari kunci 'output' (Sesuai konfigurasi n8n terbaru)
-        // ----------------------------------------------------
         const aiResponse = data.output || data.response || data.text || "Gagal mendapatkan balasan dari AI. Cek kunci 'output' di Respond to Webhook n8n.";
         
-        // Tampilkan jawaban di dalam elemen HTML
-        responseContainer.innerHTML = aiResponse;
+        // Tampilkan jawaban AI di chat
+        appendMessage(aiResponse, 'ai');
 
     } catch (error) {
         console.error('Error saat menghubungi n8n Webhook:', error);
         
-        // Tampilkan pesan error di dalam container
-        responseContainer.innerHTML = 'Terjadi kesalahan: Gagal terhubung atau menerima balasan dari ChatBot. Pastikan n8n workflow sudah aktif.';
+        // Hapus pesan loading dan tampilkan error
+        loadingMessage.remove();
+        appendMessage('Terjadi kesalahan: Gagal terhubung ke ChatBot.', 'ai-error');
+    } finally {
+        // Aktifkan kembali input dan tombol
+        userInput.disabled = false;
+        sendButton.disabled = false;
+        userInput.focus(); // Fokuskan kembali ke input
     }
 }
 
+// Catatan: openChatbot() yang lama sudah dihapus.
