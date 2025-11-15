@@ -1,5 +1,7 @@
 // URL Webhook n8n Anda untuk ChatBot
-const WEBHOOK_URL = 'https://wendyproducts.app.n8n.cloud/webhook/fb4c92a4-aa9f-43f9-9358-ae9a741b6f4d';
+
+const WEBHOOK_URL = 'https://webhook-alpha-explore.digibox.ai/webhook/19945a4a-301a-4497-bc79-d0925f82cb95';
+//const WEBHOOK_URL ='https://webhook-alpha-explore.digibox.ai/webhook/19945a4a-301a-4497-bc79-d0925f82cb95';
 
 // Dapatkan elemen-elemen DOM
 const chatMessages = document.getElementById('chat-messages');
