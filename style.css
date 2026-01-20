@@ -1,268 +1,203 @@
-/* ======================================= */
-/* ====== Gaya Umum Proyek (Asumsi) ====== */
-/* ======================================= */
-
-body { 
-    margin: 0; 
-    padding: 0; 
-    background-color: #f4f7f9; /* Latar belakang halaman */
-    color: #333;
+:root {
+  --accent: #6a7cff;
+  --text: #e9ecff;
+  --muted: rgba(233,236,255,.65);
+  --card: rgba(13,18,46,.75);
+  --border: rgba(255,255,255,.08);
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #0e1229; /* Warna primer (DIPERTAHANKAN) */
-    color: white;
-    padding: 15px 50px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* <<< PERUBAHAN: Shadow lebih kuat >>> */
+/* RESET */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, sans-serif;
+  background: linear-gradient(180deg,#070914,#0b0f2a);
+  color: var(--text);
 }
 
-.logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5em;
+/* BG */
+.bg-gradient {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(600px 400px at 30% 20%, rgba(106,124,255,.15), transparent),
+    radial-gradient(600px 400px at 70% 70%, rgba(154,166,255,.12), transparent);
 }
 
-.navbar nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+/* LAYOUT */
+.app {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
 }
 
-.navbar nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: background-color 0.3s;
+.chat-card {
+  width: min(900px,100%);
+  height: min(700px,calc(100vh - 40px));
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(16px);
 }
 
-.navbar nav ul li a:hover {
-    background-color: #434C8A; /* <<< PERUBAHAN: Sedikit lebih gelap dari #5a64a3 >>> */
-    border-radius: 6px; /* <<< PERUBAHAN: Lebih bulat >>> */
+/* HEADER */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Hero Section */
-.hero-section {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg') no-repeat center center/cover; /* <<< PERUBAHAN: Overlay lebih gelap untuk keterbacaan >>> */
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-.main-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 3em;
-    margin-bottom: 20px;
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
 }
 
-.chatbot-btn {
-    background-color: #001438; /* <<< PERUBAHAN: Warna aksen hijau/tosca cerah >>> */
-    color: white;
-    padding: 12px 30px; /* <<< PERUBAHAN: Padding lebih besar >>> */
-    border: none;
-    border-radius: 25px; /* <<< PERUBAHAN: Lebih bulat (Pill Shape) >>> */
-    cursor: pointer;
-    font-size: 1.1em; /* <<< PERUBAHAN: Font lebih besar >>> */
-    font-weight: bold; /* <<< PERUBAHAN: Ditebalkan >>> */
-    box-shadow: 0 6px 15px rgba(0, 204, 179, 0.5); /* <<< PERUBAHAN: Tambahkan shadow cerah >>> */
-    transition: all 0.3s;
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.chatbot-btn:hover {
-    background-color: #92abff; /* <<< PERUBAHAN: Warna hover yang lebih gelap >>> */
-    transform: translateY(-3px); /* <<< PERUBAHAN: Efek angkat (lift effect) >>> */
-    box-shadow: 0 8px 20px rgba(109, 123, 184, 0.7); /* <<< PERUBAHAN: Shadow lebih kuat saat hover >>> */
-}s
-
-
-/* Anggota Section */
-.anggota-section {
-    padding: 50px 20px;
-    text-align: center;
+.brand-title {
+  margin: 0;
+  font-size: 20px;
 }
 
-.section-title {
-    font-size: 2.2em; 
-    color: #5a64a3;
-    margin-bottom: 50px;
-    font-weight: bold;
-    /* Tambahkan batas lebar dan tengah agar judul tidak melebihi area tengah */
-    max-width: 1200px; /* Cocokkan dengan max-width anggota-container */
-    margin: 20px auto 40px auto; /* Tengah: top 0, sides auto, bottom 40px */
+.status {
+  font-size: 12px;
+  color: var(--muted);
 }
 
-.anggota-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #2dff8b;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
 }
 
-.anggota-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px; /* <<< PERUBAHAN: Sudut lebih bulat >>> */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* <<< PERUBAHAN: Shadow lebih halus >>> */
-    width: 200px;
-    transition: transform 0.3s; /* <<< PERUBAHAN: Tambahkan transisi hover >>> */
+.assistant-chip {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
 }
 
-.anggota-card:hover {
-    transform: translateY(-5px); /* <<< PERUBAHAN: Efek angkat >>> */
+/* CHAT */
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
 }
 
-.profile-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    background-color: #ddd;
-    background-size: cover;
-    background-position: center;
-    border: 4px solid #5a64a3; /* <<< PERUBAHAN: Border sedikit lebih tebal >>> */
+.msg {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
-.anggota-name {
-    margin: 0 0 5px;
-    color: #333;
+.msg-user {
+  justify-content: flex-end;
 }
 
-.anggota-nim {
-    color: #888;
-    font-size: 0.9em;
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-/* Footer */
-.main-footer {
-    background-color: #343A40; /* <<< PERUBAHAN: Warna gelap yang lebih standar >>> */
-    color: white;
-    text-align: center;
-    padding: 25px 0; /* <<< PERUBAHAN: Padding sedikit lebih besar >>> */
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Chatbot Icon */
-.chatbot-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 55px; /* <<< PERUBAHAN: Sedikit lebih besar >>> */
-    height: 55px;
-    background-color: #FF6B6B; /* <<< PERUBAHAN: Warna aksen yang hidup (merah muda/coral) >>> */
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.7); /* <<< PERUBAHAN: Tambahkan shadow >>> */
-    z-index: 1000;
-    transition: background-color 0.3s, transform 0.2s;
+.bubble {
+  max-width: 70%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.08);
+  font-size: 14px;
+  line-height: 1.5;           /* ✅ biar teks ga rapet */
+  white-space: normal;        /* ✅ default */
+  word-break: break-word;     /* ✅ kalau ada kata panjang/URL */
 }
 
-/* ... tambahkan hover state untuk chatbot icon ... */
-
-
-/* ==================================================== */
-/* ====== Gaya Input Data Historis (Baru Ditambahkan) ====*/
-/* ==================================================== */
-
-.project-container { 
-    max-width: 1200px; 
-    margin: 40px auto; 
-    padding: 20px; 
-    background-color: #ffffff; 
-    border-radius: 10px; /* <<< PERUBAHAN: Sudut lebih bulat >>> */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* <<< PERUBAHAN: Shadow lebih menonjol >>> */
-}
-/* ... (properti form lainnya dipertahankan) ... */
-
-.upload-area { 
-    border: 2px dashed #140049; /* <<< PERUBAHAN: Border dashed menggunakan warna aksen baru >>> */
-    padding: 30px; 
-    text-align: center; 
-    border-radius: 8px; 
-    background-color: #f9f9f9; 
-    cursor: pointer; 
-    margin-bottom: 20px; 
-    transition: border-color 0.3s; 
+/* INPUT */
+.chat-composer {
+  padding: 14px;
+  border-top: 1px solid var(--border);
 }
 
-.upload-area:hover { 
-    border-color: #5a64a3; 
-    color: #5a64a3; 
+.composer-inner {
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 10px;
 }
 
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    margin-top: 15px; 
+.composer-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  outline: none;
 }
 
-th, td { 
-    border: 1px solid #eee; /* <<< PERUBAHAN: Border tabel lebih terang >>> */
-    padding: 12px; /* <<< PERUBAHAN: Padding lebih besar >>> */
-    text-align: left; 
-    font-size: 0.9em; 
+.send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: #0b102e;
 }
 
-th { 
-    background-color: #5a64a3; 
-    color: white; 
+.chat-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
 }
 
-.btn-action { 
-    padding: 10px 20px; 
-    border: none; 
-    border-radius: 6px; /* <<< PERUBAHAN: Lebih bulat >>> */
-    cursor: pointer; 
-    font-weight: bold; 
+/* =========================================
+   ✅ TYPING INDICATOR (••• bergerak)
+   Dibutuhkan oleh script.js showTyping()
+========================================= */
+.dot {
+  width: 7px;
+  height: 7px;
+  background-color: rgba(233,236,255,0.85);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  animation: typingBounce 1.2s infinite ease-in-out;
+  opacity: 0.6;
 }
 
-.btn-save { 
-    background-color: #5A64A3; /* <<< PERUBAHAN: Menggunakan warna primer >>> */
-    color: white; 
-    margin-top: 30px; 
-    width: 100%; 
-    border-radius: 8px;
-    padding: 12px 20px;
-    box-shadow: 0 4px 8px rgba(90, 100, 163, 0.3);
-    transition: background-color 0.3s;
-}
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.30s; }
 
-.btn-save:hover {
-    background-color: #434C8A;
-}
-
-.btn-add-row { 
-    background-color: #00CCB3; /* <<< PERUBAHAN: Menggunakan warna aksen baru >>> */
-    color: white; 
-    margin-right: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 204, 179, 0.3);
-}
-
-/* Penyesuaian Responsif (Opsional) */
-@media (max-width: 768px) {
-    .navbar { padding: 15px 20px; }
-    .navbar nav ul { display: none; } 
-    .summary-input { flex-direction: column; }
-    .summary-input > div { width: 100%; }
-}
-
-/* Styling untuk Button Makalah */
-.makalah-btn {
-    display: inline-block;
-    padding: 12px 30px; /* <<< PERUBAHAN: Padding lebih besar >>> */
-    margin-top: 30px; /* <<< PERUBAHAN: Jarak lebih besar dari teks di atas >>> */
-    font-size: 1.1em;
-    font-weight: bold;
-    text-decoration: none; 
-    color: white; 
-    background-color: #5a64a3; 
-    border: 3px solid #cfd2ff; /* <<< PERUBAHAN: Border menggunakan aksen hijau cerah >>> */
-    border-radius: 30px; /* <<< PERUBAHAN: Lebih bulat (Pill Shape) >>> */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.makalah-btn:hover {
-    background-color: #434c8a; 
-    transform: translateY(-3px);
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+  40% { transform: translateY(-5px); opacity: 1; }
 }
