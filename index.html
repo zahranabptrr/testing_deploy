@@ -1,101 +1,81 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelompok AI - Project Artificial Intelligence</title>
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SAGE - Smart Assistant</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+  <div class="bg-gradient"></div>
 
-    <header class="navbar">
-        <div class="logo">Kelompok 6 Kecerdasan Buatan</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#anggota">Anggota</a></li> 
-                <li><a href="#makalah">Makalah</a></li>
-            </ul>
-        </nav>
-    </header>
+  <main class="app">
+    <section class="chat-card">
 
-    <main>
-        <section class="hero-section" id="home"> 
-            <h1 class="main-title">Project Artificial Intelligence</h1>
-            <button class="chatbot-btn" onclick="openChatbot()">Coba ChatBot</button>
+      <!-- HEADER -->
+      <header class="chat-header">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="logo.png" alt="Logo SAGE" class="brand-logo">
+          </div>
 
-            <div id="chatbot-response-container" style="
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                text-align: left;
-                background-color: rgba(0, 0, 0, 0.5); /* Hitam 50% transparan */
-                border: 1px solid white; /* Border putih */
-                border-radius: 8px;
-                color: white; /* Teks putih */
-            ">
-                <p><strong>Jawaban AI Agent:</strong></p>
-                <p id="ai-agent-text" style="white-space: pre-wrap;">Tekan tombol Chatbot untuk memulai percakapan.</p>
-            </div>   
-
-        </section>
-
-        <section class="anggota-section" id="anggota">
-            <h2 class="section-title"> Anggota Kelompok 6</h2>
-            <div class="anggota-container">
-                
-                <div class="anggota-card">
-                    <div class="profile-circle" style="background-image: url('avatar-1.jpg');"></div>
-                    <h3 class="anggota-name">Amanda Tari Kurnia Putri</h3>
-                    <p class="anggota-nim">240101020205</p>
-                </div>
-
-                <div class="anggota-card">
-                    <div class="profile-circle" style="background-image: url('avatar-2.jpg');"></div>
-                    <h3 class="anggota-name">Aufa Putra Buana</h3>
-                    <p class="anggota-nim">240101020012</p>
-                </div>
-
-                <div class="anggota-card">
-                    <div class="profile-circle" style="background-image: url('avatar-3.jpg');"></div>
-                    <h3 class="anggota-name">Wendy Casillas</h3>
-                    <p class="anggota-nim">230101020123</p>
-                </div>
-
-                <div class="anggota-card">
-                    <div class="profile-circle" style="background-image: url('avatar-4.jpg');"></div>
-                    <h3 class="anggota-name">Zahra Nabila Putri</h3>
-                    <p class="anggota-nim">250101020021</p>
-                </div>
-
+          <div class="brand-text">
+            <h1 class="brand-title">SAGE</h1>
+            <div class="brand-subtitle">
+              <span class="status">
+                <span class="status-dot"></span> Online
+              </span>
             </div>
-        </section>
+          </div>
+        </div>
 
-        <section id="makalah" style="padding: 100px; text-align: center; background-color: #f0f0f0;">
-            <h2 class="section-title">Makalah Project</h2>
-            <p>Konten makalah akan ditempatkan di sini.</p>
-            
-            <a href="https://docs.google.com/document/d/1-ue0LdQh9LbIvng4XlNkA5EKushdaVwbtYjA_PXW1mc/edit?tab=t.0" target="_blank" class="makalah-btn">
-                Makalah
-            </a>
-        </section>
-        </main>
+        <div class="assistant-chip">
+          <span class="chip-dot"></span> SAGE Assistant
+        </div>
+      </header>
 
-    <footer class="main-footer">
-        Created By Kelompok 6
-    </footer>
+      <!-- CHAT BODY -->
+      <div class="chat-body">
+        <div id="chat-messages" class="chat-messages">
+          <div class="msg msg-ai">
+            <div class="avatar">
+              <img src="logo.png" alt="AI" class="avatar-img">
+            </div>
+            <div class="bubble">
+              <p>
+                Halo! Saya <b>SAGE</b>.  
+                Saya siap membantu menjawab pertanyaan Anda.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="chatbot-icon" onclick="openChatbot()">
-        <div class="bubble-2"></div>
-        <div class="bubble-1"></div>
-    </div>
+      <!-- INPUT -->
+      <div class="chat-composer">
+        <div class="composer-inner">
+          <input
+            type="text"
+            id="user-input"
+            class="composer-input"
+            placeholder="Tulis pertanyaan Anda…"
+          />
+          <button id="send-btn" class="send-btn">➤</button>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="chat-footer">
+          Enterprise Intelligence by SAGE <span class="muted">v2.5</span>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
