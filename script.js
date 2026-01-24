@@ -2,7 +2,7 @@
 // URL Webhook n8n
 // ===============================
 const WEBHOOK_URL =
-  "https://webhook-alpha-explore.digibox.ai/webhook/2177434d-57df-41ad-bbc7-a691c43b6b9c";
+  "https://webhook-alpha-explore.digibox.ai/webhook/b6c8f3d0-333b-4506-ba1b-c774a0026705";
 
 // ===============================
 // DOM ELEMENTS
@@ -200,3 +200,4 @@ sendButton.addEventListener("click", sendMessage);
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
+
