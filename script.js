@@ -161,7 +161,7 @@ async function sendMessage() {
 
   try {
     const payload = {
-      prompt: text,
+      message: text,
       sessionId: getSessionId(),
     };
 
@@ -200,5 +200,6 @@ sendButton.addEventListener("click", sendMessage);
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
+
 
 
