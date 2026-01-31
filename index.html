@@ -2,80 +2,433 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SAGE - Smart Assistant</title>
-
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>PMO Digital Assistant</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #2563eb;
+      --bg-dark: #0f172a;
+      --bg-light: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --input-bg: #f8fafc;
+      --sage-gradient: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+    }
+
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Navbar */
+    .top-nav {
+      height: 70px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.5s ease;
+    }
+
+    .brand-visible { opacity: 1; transform: translateX(0); }
+
+    .brand-logo-small {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-logo-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+    }
+
+    /* Halaman Awal (Landing State) */
+    .landing-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .hero-logo-box {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .hero-logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 800;
+      max-width: 650px;
+      line-height: 1.2;
+      color: var(--bg-dark);
+      letter-spacing: -0.8px;
+    }
+
+    .hero-subtitle {
+      margin-top: 16px;
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 480px;
+      line-height: 1.5;
+    }
+
+    /* Area Chat */
+    .chat-view {
+      flex: 1;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 0 180px 0;
+      scroll-behavior: smooth;
+    }
+
+    .chat-content-width {
+      width: min(800px, 92%);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Pesan Bubbles */
+    .msg { display: flex; gap: 16px; width: 100%; }
+    .msg-user { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .bubble {
+      max-width: 80%;
+      font-size: 15px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    .msg-user .bubble {
+      background: var(--bg-dark);
+      padding: 14px 20px;
+      border-radius: 20px 20px 4px 20px;
+      color: white;
+    }
+
+    .msg-ai .bubble { 
+      color: var(--text-main);
+      background: #f1f5f9;
+      padding: 14px 20px;
+      border-radius: 20px 20px 20px 4px;
+    }
+
+    /* Composer Area (Input) */
+    .composer-area {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to top, white 85%, transparent);
+      z-index: 150;
+    }
+
+    .composer-centered {
+      bottom: 12%;
+      background: transparent;
+    }
+
+    .composer-container {
+      width: min(800px, 95%);
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .composer-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      outline: none;
+      color: var(--text-main);
+    }
+
+    .send-btn {
+      width: 48px; height: 48px;
+      border-radius: 16px;
+      background: var(--bg-dark);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .send-btn:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
+
+    .typing { display: flex; gap: 4px; padding: 12px 0; }
+    .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .composer-centered { bottom: 15%; }
+      .hero-logo-box { width: 90px; height: 90px; }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="bg-gradient"></div>
-
-  <main class="app">
-    <section class="chat-card">
-
-      <!-- HEADER -->
-      <header class="chat-header">
-        <div class="brand">
-          <div class="brand-mark">
-            <img src="logo.png" alt="Logo SAGE" class="brand-logo">
-          </div>
-
-          <div class="brand-text">
-            <h1 class="brand-title">SAGE</h1>
-            <div class="brand-subtitle">
-              <span class="status">
-                <span class="status-dot"></span> Online
-              </span>
-            </div>
-          </div>
+  <div class="app-container">
+    <nav class="top-nav">
+      <div class="brand-group" id="brand-nav">
+        <div class="brand-logo-small">
+          <img src="Brain_Human.png" alt="SAGE Logo">
         </div>
-
-        <div class="assistant-chip">
-          <span class="chip-dot"></span> SAGE Assistant
-        </div>
-      </header>
-
-      <!-- CHAT BODY -->
-      <div class="chat-body">
-        <div id="chat-messages" class="chat-messages">
-          <div class="msg msg-ai">
-            <div class="avatar">
-              <img src="logo.png" alt="AI" class="avatar-img">
-            </div>
-            <div class="bubble">
-              <p>
-                Halo! Saya <b>SAGE</b>.  
-                Saya siap membantu menjawab pertanyaan Anda.
-              </p>
-            </div>
-          </div>
-        </div>
+        <span style="font-weight: 800; font-size: 18px; color: var(--bg-dark)">PMO Digital Assistant</span>
       </div>
-
-      <!-- INPUT -->
-      <div class="chat-composer">
-        <div class="composer-inner">
-          <input
-            type="text"
-            id="user-input"
-            class="composer-input"
-            placeholder="Tulis pertanyaan Anda…"
-          />
-          <button id="send-btn" class="send-btn">➤</button>
-        </div>
-
-        <div class="chat-footer">
-          Enterprise Intelligence by SAGE <span class="muted">v2.5</span>
-        </div>
+      <div class="status-badge">
+        <span class="status-dot"></span> Online
       </div>
+    </nav>
 
-    </section>
-  </main>
+    <!-- Tampilan Awal -->
+    <main class="landing-view" id="landing-view">
+      <div class="hero-logo-box">
+        <img src="Brain_Human.png" alt="SAGE Logo">
+      </div>
+      <h3 class="hero-title">PMO Digital Assistant</h3>
+      <p class="hero-subtitle">Selamat datang di PMO Digital Assistant. Siap membantu memantau status, tugas, dan strategi proyek secara real-time.</p>
+    </main>
 
-  <script src="script.js"></script>
+    <!-- Chat Area -->
+    <div id="chat-view" class="chat-view">
+      <div class="chat-content-width" id="chat-list"></div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="composer-area composer-centered" id="composer-area">
+      <div class="composer-container">
+        <input type="text" id="user-input" class="composer-input" placeholder="Tanyakan status proyek atau panduan manajemen..." autocomplete="off" />
+        <button id="send-btn" class="send-btn" disabled>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+          </svg>
+        </button>
+      </div>
+      <br>
+      <div class="footer-note">Enterprise Intelligence by Kelompok 6</div>
+    </div>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://webhook-alpha-explore.digibox.ai/webhook/b6c8f3d0-333b-4506-ba1b-c774a0026705";
+    const chatView = document.getElementById("chat-view");
+    const chatList = document.getElementById("chat-list");
+    const landingView = document.getElementById("landing-view");
+    const composerArea = document.getElementById("composer-area");
+    const brandNav = document.getElementById("brand-nav");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-btn");
+
+    let isFirstMessage = true;
+
+    function getSessionId() {
+      let sid = sessionStorage.getItem("pmo_v4_sid");
+      if (!sid) {
+        sid = "pmo_" + Math.random().toString(36).substring(2, 10);
+        sessionStorage.setItem("pmo_v4_sid", sid);
+      }
+      return sid;
+    }
+
+    userInput.addEventListener("input", () => {
+      sendButton.disabled = !userInput.value.trim();
+    });
+
+    function scrollToBottom() {
+      chatView.scrollTo({ top: chatView.scrollHeight, behavior: 'smooth' });
+    }
+
+    function formatText(text) {
+      if (!text) return "";
+      let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      return html.replace(/\n/g, '<br>');
+    }
+
+    function showTyping() {
+      const div = document.createElement("div");
+      div.className = "msg msg-ai";
+      div.id = "temp-typing";
+      div.innerHTML = `
+        <div class="avatar"><img src="ai-brain.png" alt="SAGE"></div>
+        <div class="bubble"><div class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
+      `;
+      chatList.appendChild(div);
+      scrollToBottom();
+    }
+
+    function appendMessage(role, text) {
+      if (isFirstMessage) {
+        landingView.style.display = "none";
+        brandNav.classList.add("brand-visible");
+        composerArea.classList.remove("composer-centered");
+        chatView.style.display = "flex";
+        isFirstMessage = false;
+      }
+
+      const msgDiv = document.createElement("div");
+      msgDiv.className = `msg msg-${role}`;
+      if (role === 'ai') {
+        msgDiv.innerHTML = `
+          <div class="avatar"><img src="ai-brain.png" alt="SAGE"></div>
+          <div class="bubble">${formatText(text)}</div>
+        `;
+      } else {
+        msgDiv.innerHTML = `<div class="bubble">${text}</div>`;
+      }
+      chatList.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    async function handleSend() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      appendMessage('user', text);
+      userInput.value = "";
+      sendButton.disabled = true;
+      showTyping();
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, sessionId: getSessionId() })
+        });
+        
+        const data = await response.json();
+        document.getElementById("temp-typing")?.remove();
+        
+        const reply = data.output || data.response || data.text || (Array.isArray(data) && data[0]?.output);
+        if (reply) {
+          appendMessage('ai', reply);
+        } else {
+          appendMessage('ai', "Maaf, saya tidak menerima respon yang valid dari server.");
+        }
+      } catch (err) {
+        document.getElementById("temp-typing")?.remove();
+        appendMessage('ai', "Maaf, terjadi gangguan koneksi ke sistem.");
+      } finally {
+        userInput.focus();
+      }
+    }
+
+    sendButton.addEventListener("click", handleSend);
+    userInput.addEventListener("keydown", (e) => { 
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSend(); 
+      }
+    });
+  </script>
 </body>
 </html>
